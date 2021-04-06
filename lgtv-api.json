@@ -8,5 +8,6 @@
   "SERVICE_LIST": "ssap://api/getServiceList",
   "TOAST_CREATOR": "ssap://system.notifications/createToast",
   "TURN_OFF_TV": "ssap://system/turnOff"
+  
 }
 
