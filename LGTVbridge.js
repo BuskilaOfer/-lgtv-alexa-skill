@@ -88,6 +88,7 @@ var LGTVBridge = function () {
 
   this.initApps = function() {
     var supportedApps = require("./apps.json");
+    var supportedUrls = require("./urls.json");
     var applications = [];
 
     supportedApps.forEach(function(app, index) {
@@ -105,6 +106,24 @@ var LGTVBridge = function () {
           }
       });
     });
+
+
+    supportedUrls.forEach(function(app, index) {
+      applications.push({
+          name: app.displayName,
+          port: START_PORT + (index + 1),
+          handler: (action) => {
+            if (action == ACTION_ON) {
+              console.log("APP: Turning " + app.displayName + ' ON');
+              _self.execute(API.APP_LAUNCHER, 'request', {id: app.id}, 'sendMagicPkg');
+            } else {
+              console.log("APP: Turning " + app.displayName + ' OFF');
+              _self.execute(API.APP_CLOSER, 'request', {id: app.id});
+            }
+          }
+      });
+    });
+
 
     return applications;
   };
